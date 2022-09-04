@@ -37,16 +37,6 @@ public class RestController {
     }
 
 
-//    @GetMapping("/goldnow")
-//    public String pricenow() {
-//        Double averageRate = service.getExchangeData();
-//        Entity entity = new Entity();
-//        entity.setRequestDate(LocalDate.now());
-//        entity.setRequestTime(LocalTime.now());
-//        service.save(entity);
-//        String str = "Sredni kurs dla złota teraz to ";
-//        return str;
-//    }
 
     /**
      * Endpoint zapisuje srednia cene zlota w podanym zakresie czasu
