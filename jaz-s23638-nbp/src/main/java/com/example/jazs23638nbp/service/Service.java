@@ -56,18 +56,24 @@ public class Service {
             } else {
                 String inline = "";
                 Scanner scanner = new Scanner(url.openStream());
-
                 while (scanner.hasNext()) {
                     inline += scanner.nextLine();
+                    System.out.println(inline);
                 }
+
 
                 scanner.close();
 
                 JSONParser parser = new JSONParser();
-                JSONObject data_obj = (JSONObject) parser.parse(inline);
-
-                JSONArray rates = (JSONArray) data_obj.get("cenazlota");
-                return getAverageRate(rates);
+                JSONArray data_obj = (JSONArray) parser.parse(inline);
+//                System.out.println(inline);
+                Double sum = 0.0;
+                for(int i = 0; i < data_obj.size(); i++) {
+//                    JSONArray rates = (JSONArray) data_obj.get(i);
+//                    //{"data":"2013-11-12","cena":128.67}
+                    sum += (double)(((JSONObject)data_obj.get(i)).get("cena"));
+                }
+                return sum / data_obj.size();
             }
         } catch (HttpClientErrorException e) {
             throw e;
@@ -81,7 +87,7 @@ public class Service {
         double sum = 0;
         for (int i = 0; i < rates.size(); i++) {
             JSONObject obj = (JSONObject) rates.get(i);
-            double wartosc = Double.parseDouble(obj.get("Cena").toString());
+            double wartosc = Double.parseDouble(obj.get("cena").toString());
             sum += wartosc;
         }
         return sum / rates.size();

@@ -43,14 +43,17 @@ public class RestController {
      * @param startDate Data poczatkowa
      * @param endDate Data koncowa
      * @return zwracany jest obiekt Entity
+     * Znaczy powinien tak dzialac ale nie dziala
      */
     @GetMapping("/gold/{startDate}/{endDate}")
-    public String adres(@PathVariable LocalDate startDate, @PathVariable LocalDate endDate) {
-        Double averageRate = service.getExchangeData(startDate, endDate);//String.valueOf(LocalDate.of(2021, 11, 11)));
+    public String adres(@PathVariable String startDate, @PathVariable String endDate) {
+        System.out.println(startDate);
+        Double averageRate = service.getExchangeData(LocalDate.parse(startDate), LocalDate.parse(endDate));
 
 //        if (averageRate != null) {
         Entity entity = new Entity();
         entity.setStartDate(startDate);
+        entity.setEndDate(endDate);
         entity.setRequestDate(LocalDate.now());
         entity.setRequestTime(LocalTime.now());
         entity.setRate(averageRate);
